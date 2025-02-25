@@ -1,0 +1,10 @@
+{
+    "Image": {
+      "Name": "591395100729.dkr.ecr.us-east-1.amazonaws.com/lks-ecr-yuhen:latest"
+    },
+    "Ports": [
+      {
+        "ContainerPort": 5000
+      }
+    ]
+  }  
