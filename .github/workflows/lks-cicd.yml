@@ -71,10 +71,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: create .env
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: ${{ github.sha }}
         run: |
           echo AWS_ACCESS_KEY_ID= ${{ secrets.AWS_ACCESS_KEY_ID }} > .env
           echo AWS_SECRET_ACCESS_KEY= ${{ secrets.AWS_SECRET_ACCESS_KEY }} >> .env
@@ -84,7 +80,7 @@ jobs:
           echo S3_BUCKET_NAME= ${{ secrets.S3_BUCKET_NAME }} >> .env
           echo API_GATEWAY_URL= ${{ secrets.API_GATEWAY_URL }} >> .env
           ECR_REPOSITORY= ${{ secrets.ECR_REPOSITORY }}
-          ECR_REGISTRY=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG >> .env
+          ECR_REGISTRY=591395100729.dkr.ecr.us-east-1.amazonaws.com/lks-ecr-yuhen:3516f0436be4beb0e033d24b38e1b86bff79cf0a >> .env
 
       - name: Zip the application
         run: zip -r flask-app.zip .
