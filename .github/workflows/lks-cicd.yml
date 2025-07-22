@@ -55,6 +55,7 @@ jobs:
           echo "AWS_SESSION_TOKEN=${{ secrets.AWS_SESSION_TOKEN }}" >> .env
           echo "AWS_REGION=${{ secrets.AWS_REGION }}" >> .env
           echo "EFS_PATH=/mnt/efs/log/app.log" >> .env
+          echo "ZIP_S3_BUCKET_NAME=${{ secrets.ZIP_S3_BUCKET_NAME }}" >> .env
           echo "S3_BUCKET_NAME=${{ secrets.S3_BUCKET_NAME }}" >> .env
           echo "API_GATEWAY_URL=${{ secrets.API_GATEWAY_URL }}" >> .env
           echo "ECR_REPOSITORY=${{ secrets.ECR_REPOSITORY }}" >> .env 
@@ -86,7 +87,7 @@ jobs:
 
       - name: Upload ZIP to S3
         run: |
-          aws s3 cp flask-app.zip s3://${{ secrets.S3_BUCKET_NAME }}/flask-app.zip
+          aws s3 cp flask-app.zip s3://${{ secrets.ZIP_S3_BUCKET_NAME }}/flask-app.zip
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -111,7 +112,7 @@ jobs:
           aws elasticbeanstalk create-application-version \
             --application-name ${{ secrets.EB_APP_NAME }} \
             --version-label $IMAGE_TAG \
-            --source-bundle S3Bucket=${{ secrets.S3_BUCKET_NAME }},S3Key=flask-app.zip \
+            --source-bundle S3Bucket=${{ secrets.ZIP_S3_BUCKET_NAME }},S3Key=flask-app.zip \
             --process
 
           aws elasticbeanstalk update-environment \
