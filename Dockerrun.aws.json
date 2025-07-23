@@ -1,6 +1,6 @@
 {
     "Image": {
-      "Name": "591395100729.dkr.ecr.us-east-1.amazonaws.com/lks-ecr-yuhen:latest"
+      "Name": "426178012139.dkr.ecr.us-east-1.amazonaws.com/yuhen/apps:latest"
     },
     "Ports": [
       {
