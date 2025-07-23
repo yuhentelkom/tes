@@ -1,0 +1,15 @@
+.qodo
+LICENSE
+.env
+.env.*
+
+app.py_
+
+infrastructure/cloudformation.yaml
+infrastructure/rds.yaml
+infrastructure/s3.yaml
+infrastructure/*
+
+modul2.yaml
+
+LICENSE
