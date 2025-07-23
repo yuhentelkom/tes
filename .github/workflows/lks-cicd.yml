@@ -45,6 +45,21 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: create .env
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+        run: |
+          echo AWS_ACCESS_KEY_ID= ${{ secrets.AWS_ACCESS_KEY_ID }} > .env
+          echo AWS_SECRET_ACCESS_KEY= ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo AWS_SESSION_TOKEN= ${{ secrets.AWS_SESSION_TOKEN }} >> .env
+          echo AWS_REGION= ${{ secrets.AWS_REGION }} >> .env
+          echo EFS_PATH=/mnt/efs/log/app.log" >> .env
+          echo S3_BUCKET_NAME= ${{ secrets.S3_BUCKET_NAME }} >> .env
+          echo API_GATEWAY_URL= ${{ secrets.API_GATEWAY_URL }} >> .env
+          echo ECR_REPOSITORY= ${{ secrets.ECR_REPOSITORY }} >> .env 
+          echo ECR_REGISTRY= $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG >> .env
+
       - name: Build, Tag, and Push Docker image to ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
