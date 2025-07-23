@@ -71,7 +71,7 @@ jobs:
 
       - name: Replace IMAGE_TAG in Dockerrun.aws.json
         run: |
-          sed -i "s|:latest|:${{ github.sha }}|g" Dockerrun.aws.json
+          sed -i "s|_TAG_|:${{ github.sha }}|g" Dockerrun.aws.json
 
   upload_to_s3:
     needs: build_and_push_ecr
@@ -83,7 +83,7 @@ jobs:
 
       - name: Replace IMAGE_TAG in Dockerrun.aws.json
         run: |
-          sed -i "s|:latest|:${{ github.sha }}|g" Dockerrun.aws.json        
+          sed -i "s|_TAG_|:${{ github.sha }}|g" Dockerrun.aws.json        
 
       - name: Zip the application
         run: zip -r flask-app.zip .
